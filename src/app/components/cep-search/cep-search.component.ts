@@ -37,4 +37,34 @@ export class CepSearchComponent {
       this.searchHistory.push(cep);
     }
   }
+
+  returnFromService(): string{
+    return this.cepService.anyMethod();
+  }
+
+  returnFromComponent(): string{
+    let result = this.cepService.anyMethod();
+    return 'response';
+  }
+
+  returnFromService2() {
+    let result2 = this.cepService.anyMethod2();
+    return result2;
+  }
+
+  returnFromComponent2(){
+    let result2 =  this.cepService.anyMethod2();
+    return {
+      cep: "15990-253",
+      logradouro: "Avenida Yolanda Tomazelli Cecchetto",
+      complemento: "",
+      bairro: "Residencial Beniamino Cadioli",
+      localidade: "Matão",
+      uf: "SP",
+      ibge: "3529302",
+      gia: "4418",
+      ddd: "16",
+      siafi: "6687"
+    };
+  }
 }

@@ -81,4 +81,52 @@ describe('CepSearchComponent', () => {
     expect(component.searchHistory.length).toBe(1);
     expect(component.searchHistory).toContain('15990253');
   });
+
+  /*
+    toBe() versus toEqual(): 
+    toEqual() checks equivalence. toBe(), on the other hand, makes sure that they're the EXACT SAME object.
+  */
+  it('primite values comparison - test success', () => {
+    const dummy = 'response';
+    spyOn(cepService, 'anyMethod').and.returnValue(dummy);
+
+    let result = component.returnFromService();
+    expect(result).toBe(dummy);
+    expect(result).toEqual(dummy);
+
+    //altough there's a spy on the service method, the result is returned by the component method instead
+    //since it's a primitive, toBe / toEqual will both pass
+    let result2 = component.returnFromComponent();
+    expect(result2).toBe(dummy);
+    expect(result2).toEqual(dummy);
+  });
+
+  it('complex type comparison - different memory allocation toBe() WILL NOT pass', () => {
+    spyOn(cepService, 'anyMethod2').and.returnValue(dummyCepResponse);
+
+    let result = component.returnFromComponent2();
+    expect(result).toBe(dummyCepResponse);
+  });
+
+  it('complex type comparison - same memory allocation toBe() WILL pass', () => {
+    spyOn(cepService, 'anyMethod2').and.returnValue(dummyCepResponse);
+
+    let result = component.returnFromService2();
+    expect(result).toBe(dummyCepResponse);
+  });
+
+  it('complex type comparison - different memory allocation toEqual() will PASS', () => {
+    spyOn(cepService, 'anyMethod2').and.returnValue(dummyCepResponse);
+
+    let result = component.returnFromComponent2();
+    expect(result).toEqual(dummyCepResponse);
+  });
+  
+  it('complex type comparison - same memory allocation toEqual will also PASS', () => {
+    spyOn(cepService, 'anyMethod2').and.returnValue(dummyCepResponse);
+
+    let result = component.returnFromService2();
+    expect(result).toEqual(dummyCepResponse);
+  });
+
 });

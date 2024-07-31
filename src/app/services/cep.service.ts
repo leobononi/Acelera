@@ -26,4 +26,12 @@ export class CepService {
   getCepData(cep: string): Observable<CepResponse> {
     return this.http.get<CepResponse>(`${this.apiUrl}/${cep}/json`);
   }
+
+  anyMethod(): string {
+    return 'response';
+  }
+
+  anyMethod2(): CepResponse {
+    return {} as CepResponse;
+  }
 }
